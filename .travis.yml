@@ -1,0 +1,6 @@
+language: java
+
+before_script:
+- sudo apt-get install ant-optional
+- git clone https://github.com/twangcs2021/fraccalc-tests.git fraccalc-tests
+- mv fraccalc-tests/*.java .
