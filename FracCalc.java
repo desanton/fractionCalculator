@@ -3,8 +3,8 @@ import java.util.*;
 /**
  * Calculates fractions.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Tony Fernandes and Ara Esfar something
+ * @version 9/21/20
  */
 public class FracCalc {
 
@@ -34,7 +34,34 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
         // TODO: Implement this function to produce the solution to the input
-
+        /*
+        produceAnswer breaks up that line of input into three Strings: the first operand (fraction), the
+        operator (+ - * /), and the second operand (fraction). Each of these Strings should be stored in
+        variables inside produceAnswer.
+        */
+        
+        String numerator1 = "";
+        String denominator1 = "";
+        
+        String operator = "";
+        
+        String numerator2 = "";
+        String denominator2 = "";
+        
+        for(int i = 0; i < input.length; i++){
+            if(input.charAt(i) == ' ')
+            {
+                numerator1 = input.subString(0, i);
+                // add parsing for denoms and stuff
+                
+                operator = input.charAt(i);
+                numerator2 = 
+            }
+            
+        }
+        
+       
+        
         return "";
     }
 
