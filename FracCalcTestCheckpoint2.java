@@ -3,8 +3,8 @@ import org.junit.Test;
 /**
  * Checkpoint 2 tests.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Ara Esfarjani and Tony Fernandes
+ * @version 9/21/2020
  */
 public class FracCalcTestCheckpoint2
 {
