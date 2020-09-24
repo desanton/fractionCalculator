@@ -39,30 +39,27 @@ public class FracCalc {
         operator (+ - * /), and the second operand (fraction). Each of these Strings should be stored in
         variables inside produceAnswer.
         */
-        
-        String numerator1 = "";
-        String denominator1 = "";
-        
+        String firstNum = "";
         String operator = "";
+        String secondNum = "";
         
-        String numerator2 = "";
-        String denominator2 = "";
-        
-        for(int i = 0; i < input.length; i++){
+        for(int i = 0; i < input.length(); i++){
             if(input.charAt(i) == ' ')
             {
-                numerator1 = input.subString(0, i);
-                // add parsing for denoms and stuff
+                firstNum = input.substring(0, i);
+                operator = input.substring( (i + 1), (i + 2) );
+                secondNum = input.substring((i + 3));
                 
-                operator = input.charAt(i);
-                numerator2 = 
+                System.out.println("firstNum: " + firstNum);
+                System.out.println("operator: " + operator);
+                System.out.println("secondNum: " + secondNum);
+                break;
             }
             
         }
         
-       
+        return secondNum;        
         
-        return "";
     }
 
     // TODO: Fill in the space below with any helper methods
