@@ -58,8 +58,30 @@ public class FracCalc {
             
         }
         
-        return secondNum;        
+        String wholeFirst = "";
+        int wholeEndIndex = 0;
         
+        for(int i = 0; i < firstNum; i++)
+        {
+            if(charAt(i) == '_')
+            {
+                wholeFirst = firstNum.substring(0, i);
+                wholeEndIndex = i;
+            }
+        }
+        
+        String numeratorFirst = "";
+        
+        for(int i = 0; i < firstNum; i++)
+        {
+            if(charAt(i) == '/')
+            {
+                numeratorFirst = firstNum.substring((wholeEndIndex + 1), i);
+            }
+        }
+        
+        
+        return secondNum;
     }
 
     // TODO: Fill in the space below with any helper methods
