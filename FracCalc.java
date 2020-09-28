@@ -39,6 +39,26 @@ public class FracCalc {
         operator (+ - * /), and the second operand (fraction). Each of these Strings should be stored in
         variables inside produceAnswer.
         */
+        
+        
+        /*
+        Test input: 1_2/3 + 4_5/6
+        
+        Input possibilities
+        
+        Number:
+        - Can only be whole: 2
+            Should say "whole: 2, num: 0, denom: 0"
+        - Can only be frac: 2/3
+            Should say "whole: 0, num: 2, denom: 3"
+        - Can be mixed: 2_2/3
+            Should say "whole: 2, num: 2, denom: 3"
+        - Can be nothing: 
+            Should say "whole: 0, num: 0, denom: 0"
+        
+        
+        */
+        
         String firstNum = "";
         String operator = "";
         String secondNum = "";
@@ -58,30 +78,78 @@ public class FracCalc {
             
         }
         
-        String wholeFirst = "";
-        int wholeEndIndex = 0;
+        int wholeFirst = 0;
+        int wholeFirstEndIndex = 0;
         
-        for(int i = 0; i < firstNum; i++)
+        for(int i = 0; i < firstNum.length(); i++)
         {
-            if(charAt(i) == '_')
+            if(firstNum.charAt(i) == '_')
             {
-                wholeFirst = firstNum.substring(0, i);
-                wholeEndIndex = i;
-            }
-        }
-        
-        String numeratorFirst = "";
-        
-        for(int i = 0; i < firstNum; i++)
-        {
-            if(charAt(i) == '/')
-            {
-                numeratorFirst = firstNum.substring((wholeEndIndex + 1), i);
+                wholeFirst = Integer.parseInt( firstNum.substring(0, i) );
+                wholeFirstEndIndex = i;
             }
         }
         
         
-        return secondNum;
+        int numeratorFirst = 0;
+        
+        int denominatorFirst = 0;
+        
+        for(int i = 0; i < firstNum.length(); i++)
+        {
+            if(firstNum.charAt(i) == '/')
+            {
+                String yee = firstNum.substring((wholeFirstEndIndex + 1), i);
+                String eey = firstNum.substring(i + 1);
+                
+                numeratorFirst = Integer.parseInt(yee);
+                denominatorFirst = Integer.parseInt(eey);
+            }
+        }
+        
+        
+        System.out.println();
+        System.out.println("First Number");
+        System.out.println("whole: " + wholeFirst + ", numerator: " + numeratorFirst + ", denominator: " + denominatorFirst);
+        
+        //second number time
+        
+        int wholeSecond = 0;
+        int wholeSecondEndIndex = 0;
+        
+        for(int i = 0; i < secondNum.length(); i++)
+        {
+            if(secondNum.charAt(i) == '_')
+            {
+                wholeSecond = Integer.parseInt( secondNum.substring(0, i) );
+                wholeSecondEndIndex = i;
+            }
+        }
+        
+        
+        int numeratorSecond = 0;
+        
+        int denominatorSecond = 0;
+        
+        for(int i = 0; i < secondNum.length(); i++)
+        {
+            if(secondNum.charAt(i) == '/')
+            {
+                String yee = secondNum.substring((wholeSecondEndIndex + 1), i);
+                String eey = secondNum.substring(i + 1);
+                
+                numeratorSecond = Integer.parseInt(yee);
+                denominatorSecond = Integer.parseInt(eey);
+            }
+        }
+        
+        
+        System.out.println();
+        System.out.println("Second Number");
+        System.out.println("whole: " + wholeSecond + ", numerator: " + numeratorSecond + ", denominator: " + denominatorSecond);        
+        
+        
+        return ("whole: " + wholeSecond + ", numerator: " + numeratorSecond + ", denominator: " + denominatorSecond);
     }
 
     // TODO: Fill in the space below with any helper methods
