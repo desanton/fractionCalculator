@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Calculates fractions.
  *
- * @author Tony Fernandes and Ara Esfar something
+ * @author Tony Fernandes and Ara Esfarjani something
  * @version 9/21/20
  */
 public class FracCalc {
@@ -15,6 +15,7 @@ public class FracCalc {
      */
     public static void main(String[] args) 
     {
+        System.out.println("helllloo");
         Scanner inputScanner = new Scanner(System.in);
         String inputLine = inputScanner.nextLine();
         System.out.println(produceAnswer(inputLine));
@@ -33,16 +34,8 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input
         /*
-        produceAnswer breaks up that line of input into three Strings: the first operand (fraction), the
-        operator (+ - * /), and the second operand (fraction). Each of these Strings should be stored in
-        variables inside produceAnswer.
-        */
-        
-        
-        /*
-        Test input: 1_2/3 + 4_5/6
+        Test input: -1_2/3 + 4_5/6
         
         Input possibilities
         
@@ -55,6 +48,35 @@ public class FracCalc {
             Should say "whole: 2, num: 2, denom: 3"
         - Can be nothing: 
             Should say "whole: 0, num: 0, denom: 0"
+            
+        system
+            for fractions
+                adding/subtracting
+                    
+                    multiply denoms together so they're the same = new denom
+                    multiply numerators by same value
+                    result = add/subtract numerators
+                    
+                    return result/new denom
+                
+                multiplying/dividing
+                for dividing, just reverse the second number, then multiply
+                    nResult = numerator * other numerator
+                    dResult = denominator * other denominator
+                    
+                    return nResult/dResult
+            
+            for whole numbers
+                adding/subtracting/multiplying
+                    just add/subtract/multiply
+                
+                dividing
+                    if divisible
+                        just divide
+                    else
+                        make into fraction
+                        simplify
+                        add to other fraction
         
         
         */
@@ -70,9 +92,6 @@ public class FracCalc {
                 operator = input.substring( (i + 1), (i + 2) );
                 secondNum = input.substring((i + 3));
                 
-                System.out.println("firstNum: " + firstNum);
-                System.out.println("operator: " + operator);
-                System.out.println("secondNum: " + secondNum);
                 break;
             }
             
@@ -108,20 +127,23 @@ public class FracCalc {
         }
         
         
-        System.out.println();
-        System.out.println("First Number");
-        System.out.println("whole: " + wholeFirst + ", numerator: " + numeratorFirst + ", denominator: " + denominatorFirst);
-        
         //second number time
         
         int wholeSecond = 0;
         int wholeSecondEndIndex = 0;
+        boolean wholeSecondNegative;
         
         for(int i = 0; i < secondNum.length(); i++)
         {
             if(secondNum.charAt(i) == '_')
             {
                 wholeSecond = Integer.parseInt( secondNum.substring(0, i) );
+                
+                if(wholeSecond < 0)
+                {
+                    wholeNegative = true;
+                    wholeSecond *= -1;
+                }    
                 wholeSecondEndIndex = i;
             }
         }
@@ -138,18 +160,18 @@ public class FracCalc {
                 String yee = secondNum.substring((wholeSecondEndIndex + 1), i);
                 String eey = secondNum.substring(i + 1);
                 
+                System.out.println("second Numerator: " + yee);
+                System.out.println("second Denominator: " + eey);
+                
                 numeratorSecond = Integer.parseInt(yee);
                 denominatorSecond = Integer.parseInt(eey);
             }
         }
         
         
-        System.out.println();
-        System.out.println("Second Number");
-        System.out.println("whole: " + wholeSecond + ", numerator: " + numeratorSecond + ", denominator: " + denominatorSecond);        
         
         
-        return ("whole: " + wholeSecond + ", numerator: " + numeratorSecond + ", denominator: " + denominatorSecond);
+        return ("whole:" + wholeSecond + " numerator:" + numeratorSecond + " denominator:" + denominatorSecond);
     }
 
     // TODO: Fill in the space below with any helper methods
