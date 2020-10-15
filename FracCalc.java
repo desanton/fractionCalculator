@@ -35,43 +35,6 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
         System.out.println("Raw Input: " + input);
-        
-        /*
-        Test input: -22_3/7 + -33_9/2
-        
-        system
-            for fractions
-                adding/subtracting
-                    
-                    multiply denoms together so they're the same = new denom
-                    multiply numerators by same value
-                    result = add/subtract numerators
-                    
-                    return result/new denom
-                
-                multiplying/dividing
-                for dividing, just reverse the second number, then multiply
-                    nResult = numerator * other numerator
-                    dResult = denominator * other denominator
-                    
-                    return nResult/dResult
-            
-            for whole numbers
-                adding/subtracting/multiplying
-                    just add/subtract/multiply
-                
-                dividing
-                    if divisible
-                        just divide
-                    else
-                        make into fraction
-                        simplify
-                        add to other fraction
-        
-        
-        */
-        
-        
 
 //========PARSING================================================================
 
@@ -125,8 +88,8 @@ public class FracCalc {
                 if(firstWhole < 0)
                 {
                     firstNegative = true;
-                    firstWhole *= -1;
-                }    
+                }
+                
                 firstWholeEndIndex = i;
             }
         }
@@ -175,7 +138,7 @@ public class FracCalc {
         //Separates second num into whole, numerator, denominator. Stores positive/negative value
         int secondWhole = 0;
         int secondWholeEndIndex = 0;
-        boolean secondNegative;
+        boolean secondNegative = false;
         
         int secondNumerator = 0;
         int secondDenominator = 1;
@@ -250,11 +213,138 @@ public class FracCalc {
         System.out.println();
         System.out.println("Second Number: ");
         System.out.println("whole:" + secondWhole + " numerator:" + secondNumerator + " denominator:" + secondDenominator);
+        System.out.println();
+        
+//========Calculation================================================================
+        /*
+        Test input: -22_3/7 + -33_9/14
+        
+        system
+            adding/subtracting
+                if second number is neg, reverse operation
+                
+                for frac
+                    Find GCF
+                    Multiply denom1 by GCF = newDenom
+                    Multiply denom2 by GCF
+                    Multiply Numer1 by GCF
+                    Multiply numer2 by GCF
+                    
+                    add numer1 + numer2 = numerResult
+                    
+                    return numerResult and newDenom
+                
+                for whole
+                    add/subtract
+                    
+                    return whole
+                
+                return whole_numer/denom
+                    
+                    
+            multiplying
+                
+                multiply numers and denoms
+                multiply whole numbers
+                
+                return whole_numer/denom
+            
+            dividing
+                Turn both numbers into frac
+                    whole1 * denom1 = yeah
+                    numer1 + yeah = newNumerator1
+                    
+                    print newFrac1 = newNumerator1 / denom1
+                    
+                    whole2 * denom2 = yee
+                    numer2 + yee = newNumerator2
+                    
+                    print newFrac2 = newNumerator2 / denom2
+                    
+                After turning both numbers into frac
+                    num1      *       denom2
+                    denom1            num2
+                    
+                    ( (num1 * denom2) ) = newNumerator
+                    ( (denom1 * num2) ) = newDenominator
+        */
+        
+        String totalAnswer = "";
+        String wholeAnswer = "";
+        String fracAnswer = "";
+        
+        if( (operator.equals("+") ) || (operator.equals("-") ) )
+        {
+            
+            //if second number negative, reverse operation
+            if(secondNegative)
+            {
+                if(operator == "+")
+                {
+                    operator = "-";
+                }
+                if(operator == "-")
+                {
+                    operator = "+";
+                }
+            }
+            
+            //Fraction calculation
+            if( firstFracExists && secondFracExists )
+            {
+                int newDenominator = secondDenominator * firstDenominator;
+                int newNumerator1 = secondDenominator * firstNumerator;
+                int newNumerator2 = firstDenominator * secondNumerator;
+                
+                if(firstNegative)
+                {
+                    newNumerator1 *= -1;
+                }
+                
+                int result = 0;
+                
+                if(operator.equals("+"))
+                {
+                    result = newNumerator1 + newNumerator2;
+                }
+                else
+                {
+                    result = newNumerator1 - newNumerator2;
+                }
+                
+                fracAnswer = result + "/" + newDenominator;
+                
+                
+            }
+            else
+            {
+                if(firstFracExists)
+                {
+                    fracAnswer = firstNumerator + "/" + firstDenominator;
+                }
+                else
+                {
+                    fracAnswer = secondNumerator + "/" + secondDenominator;
+                }
+            }
+            
+            System.out.println("frac: " + fracAnswer);
+            
+        }
+        else if( (operator.equals("*")) )
+        {
+            int newNumerator = firstNumerator * secondNumerator;
+            int newDenominator = firstDenominator * secondDenominator;
+            
+            
+        }
+        else
+        {
+            
+        }
         
         
-        
-        
-        return ("whole:" + secondWhole + " numerator:" + secondNumerator + " denominator:" + secondDenominator);
+        return "poop funny haha";
     }
 
     // TODO: Fill in the space below with any helper methods
