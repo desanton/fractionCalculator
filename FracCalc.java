@@ -68,6 +68,12 @@ public class FracCalc {
         
         boolean firstFracExists = false;
         
+        if(firstNum.charAt(0) == '-')
+        {
+            firstNegative = true;
+            firstNum = firstNum.substring(1, firstNum.length() );
+        }
+        
         for(int i = 0; i < firstNum.length(); i++)
         {
             if(firstNum.charAt(i) == '/')
@@ -75,7 +81,7 @@ public class FracCalc {
                 //if there's a fraction, there must be a /
                 firstFracExists = true;
                 
-                //if there's no fraction, there won't be a _, so we can just break
+                //if it detects a / before it detects a _, there won't be a wholenumber, so we can just break
                 break;
             }
             
@@ -84,12 +90,6 @@ public class FracCalc {
                 //if there's both a whole number and a fraction, there must be a _
                 
                 firstWhole = Integer.parseInt( firstNum.substring(0, i) );
-                
-                if(firstWhole < 0)
-                {
-                    firstNegative = true;
-                }
-                
                 firstWholeEndIndex = i;
             }
         }
@@ -145,12 +145,23 @@ public class FracCalc {
         
         boolean secondFracExists = false;
         
+        if(secondNum.charAt(0) == '-')
+        {
+            //checks if negative. If so, stores neg as true and removes - sign to avoid further confusion
+            
+            secondNegative = true;
+            secondNum = secondNum.substring(1, secondNum.length() );
+        }
+        
         for(int i = 0; i < secondNum.length(); i++)
         {
             if(secondNum.charAt(i) == '/')
             {
                 //if there's a fraction, there must be a /
                 secondFracExists = true;
+                
+                //if it detects a / before it detects a _, there won't be a wholenumber, so we can just break
+                break;
             }
             
             if(secondNum.charAt(i) == '_')
@@ -158,12 +169,6 @@ public class FracCalc {
                 //if there's both a whole number and a fraction, there must be a _
                 
                 secondWhole = Integer.parseInt( secondNum.substring(0, i) );
-                
-                if(secondWhole < 0)
-                {
-                    secondNegative = true;
-                    secondWhole *= -1;
-                }    
                 secondWholeEndIndex = i;
             }
         }
@@ -217,7 +222,7 @@ public class FracCalc {
         
 //========Calculation================================================================
         /*
-        Test input: -22_3/7 + -33_9/14
+        Test input: -22_3/7 - -33_9/14
         
         system
             adding/subtracting
@@ -273,17 +278,17 @@ public class FracCalc {
         String wholeAnswer = "";
         String fracAnswer = "";
         
+        
         if( (operator.equals("+") ) || (operator.equals("-") ) )
         {
-            
             //if second number negative, reverse operation
             if(secondNegative)
             {
-                if(operator == "+")
+                if(operator.equals("+") )
                 {
                     operator = "-";
                 }
-                if(operator == "-")
+                else
                 {
                     operator = "+";
                 }
@@ -329,6 +334,29 @@ public class FracCalc {
             }
             
             System.out.println("frac: " + fracAnswer);
+            
+            //Whole number calculation
+            if(firstNegative)
+            {
+                firstWhole *= -1;
+            }
+            
+            int ree = 0;
+            
+            if(operator.equals("+"))
+            {
+                ree = firstWhole + secondWhole;
+            }
+            else
+            {
+                ree = firstWhole - secondWhole;
+            }
+            
+            wholeAnswer = Integer.toString(ree);
+            
+            totalAnswer = wholeAnswer + "_" + fracAnswer;
+            
+            System.out.println("answer: " + totalAnswer);
             
         }
         else if( (operator.equals("*")) )
