@@ -34,7 +34,7 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     { 
-        System.out.println("Raw Input: " + input);
+                System.out.println("Raw Input: " + input);
 
 //========PARSING================================================================
 
@@ -222,7 +222,7 @@ public class FracCalc {
         
 //========Calculation================================================================
         /*
-        Test input: -22_3/7 - -33_9/14
+        Test input: 2/3 * -1_1/2
         
         system
             adding/subtracting
@@ -361,18 +361,39 @@ public class FracCalc {
         }
         else if( (operator.equals("*")) )
         {
-            int newNumerator = firstNumerator * secondNumerator;
-            int newDenominator = firstDenominator * secondDenominator;
             
+            int newFirstNumerator = (firstWhole * firstDenominator) + firstNumerator;
+            if(firstNegative)
+            {
+                newFirstNumerator *= -1;
+            }
+            
+            int newSecondNumerator = (secondWhole * secondDenominator) + secondNumerator;
+            if(secondNegative)
+            {
+                newSecondNumerator *= -1;
+            }
+            
+            int numeratorAnswer = newFirstNumerator * newSecondNumerator;
+            int denominatorAnswer = firstDenominator * secondDenominator;
+            
+            
+            totalAnswer = "" + numeratorAnswer + "/" + denominatorAnswer;
             
         }
         else
         {
             
+            
+            
+            
+            
+            
+            
         }
         
         
-        return "poop funny haha";
+        return totalAnswer;
     }
 
     // TODO: Fill in the space below with any helper methods
