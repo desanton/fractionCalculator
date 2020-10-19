@@ -34,7 +34,7 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     { 
-                System.out.println("Raw Input: " + input);
+         System.out.println("Raw Input: " + input);
 
 //========PARSING================================================================
 
@@ -222,8 +222,6 @@ public class FracCalc {
         
 //========Calculation================================================================
         /*
-        Test input: 2/3 * -1_1/2
-        
         system
             adding/subtracting
                 if second number is neg, reverse operation
@@ -272,125 +270,98 @@ public class FracCalc {
                     
                     ( (num1 * denom2) ) = newNumerator
                     ( (denom1 * num2) ) = newDenominator
+        
+        
+        Test input: 2/3 - -1_1/3
         */
         
         String totalAnswer = "";
-        String wholeAnswer = "";
-        String fracAnswer = "";
+        int numeratorAnswer = 0;
+        int denominatorAnswer = 0;
+        
+        int newFirstNumerator = (firstWhole * firstDenominator) + firstNumerator;
+        if(firstNegative)
+        {
+            newFirstNumerator *= -1;
+        }
+        
+        int newSecondNumerator = (secondWhole * secondDenominator) + secondNumerator;
+        if(secondNegative)
+        {
+            newSecondNumerator *= -1;
+        }
+        
+        System.out.println("newFirstNumerator: " + newFirstNumerator);
+        System.out.println("newSecondNumerator: " + newSecondNumerator);
         
         
         if( (operator.equals("+") ) || (operator.equals("-") ) )
         {
-            //if second number negative, reverse operation
-            if(secondNegative)
-            {
-                if(operator.equals("+") )
-                {
-                    operator = "-";
-                }
-                else
-                {
-                    operator = "+";
-                }
-            }
-            
-            //Fraction calculation
-            if( firstFracExists && secondFracExists )
-            {
-                int newDenominator = secondDenominator * firstDenominator;
-                int newNumerator1 = secondDenominator * firstNumerator;
-                int newNumerator2 = firstDenominator * secondNumerator;
-                
-                if(firstNegative)
-                {
-                    newNumerator1 *= -1;
-                }
-                
-                int result = 0;
-                
-                if(operator.equals("+"))
-                {
-                    result = newNumerator1 + newNumerator2;
-                }
-                else
-                {
-                    result = newNumerator1 - newNumerator2;
-                }
-                
-                fracAnswer = result + "/" + newDenominator;
-                
-                
-            }
-            else
-            {
-                if(firstFracExists)
-                {
-                    fracAnswer = firstNumerator + "/" + firstDenominator;
-                }
-                else
-                {
-                    fracAnswer = secondNumerator + "/" + secondDenominator;
-                }
-            }
-            
-            System.out.println("frac: " + fracAnswer);
-            
-            //Whole number calculation
-            if(firstNegative)
-            {
-                firstWhole *= -1;
-            }
-            
-            int ree = 0;
+            denominatorAnswer = secondDenominator * firstDenominator;
+            int newNumerator1 = secondDenominator * newFirstNumerator;
+            int newNumerator2 = firstDenominator * newSecondNumerator;
             
             if(operator.equals("+"))
             {
-                ree = firstWhole + secondWhole;
+                numeratorAnswer = newNumerator1 + newNumerator2;
             }
             else
             {
-                ree = firstWhole - secondWhole;
+                numeratorAnswer = newNumerator1 - newNumerator2;
             }
-            
-            wholeAnswer = Integer.toString(ree);
-            
-            totalAnswer = wholeAnswer + "_" + fracAnswer;
-            
-            System.out.println("answer: " + totalAnswer);
-            
         }
         else if( (operator.equals("*")) )
         {
-            
-            int newFirstNumerator = (firstWhole * firstDenominator) + firstNumerator;
-            if(firstNegative)
-            {
-                newFirstNumerator *= -1;
-            }
-            
-            int newSecondNumerator = (secondWhole * secondDenominator) + secondNumerator;
-            if(secondNegative)
-            {
-                newSecondNumerator *= -1;
-            }
-            
-            int numeratorAnswer = newFirstNumerator * newSecondNumerator;
-            int denominatorAnswer = firstDenominator * secondDenominator;
-            
-            
-            totalAnswer = "" + numeratorAnswer + "/" + denominatorAnswer;
-            
+            numeratorAnswer = newFirstNumerator * newSecondNumerator;
+            denominatorAnswer = firstDenominator * secondDenominator;
         }
         else
         {
+            //to divide, multiply first frac by reciprocal of second frac
             
-            
-            
-            
-            
-            
+            //multiply numer1 * denom2 for numerAnswer
+            //multiply denom1 * numer2 for denomAnswer
+            numeratorAnswer = newFirstNumerator * secondDenominator;
+            denominatorAnswer = firstDenominator * newSecondNumerator;
             
         }
+        
+        totalAnswer = "" + numeratorAnswer + "/" + denominatorAnswer;
+        System.out.println("answer: " + totalAnswer);
+        
+        
+//========Simplifying================================================================        
+
+        /*
+        Simplifying
+        
+        get GCF of numerAnswer and dAnswer
+        nAsnwer = nAnswer / GCF
+        dAnswer = dAnswer / GCF
+        
+        now we have to take a whole number out of the fraction
+        
+        if nAnswer > dAnswer --> improper fraction (there's a whole number)
+            
+            wholeAnswer = nAnswer / dAnswer (since they're ints, returns int)
+            simpleNumerator = nAnswer % dAnswer
+            
+            totalAnswer = "" + wholeAnswer + "_" + simpleNumerator + "/" + denominatorAnswer;
+            
+            
+            ex: 4/3
+            
+            whole number = 4/3 = 1 (becuz they're ints)
+            leftover (numerator) = 4%3 = 1
+            
+            so 1_1/3
+        else if nAnswer = dAnswer
+            totalAnswer = "1";
+        else 
+            totalAnswer = nAnswer + / + dAnswer
+        
+        */
+        
         
         
         return totalAnswer;
