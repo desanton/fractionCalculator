@@ -34,7 +34,6 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     { 
-         System.out.println("Raw Input: " + input);
 
 //========PARSING================================================================
 
@@ -54,8 +53,6 @@ public class FracCalc {
             }
             
         }
-        
-        System.out.println("First Num: " + firstNum + ",operator: " + operator + ", second num: " + secondNum);
         
         
         //Separates first num into whole, numerator, denominator. Stores positive/negative value
@@ -131,9 +128,6 @@ public class FracCalc {
             }
         }
         
-        System.out.println();
-        System.out.println("First number: ");
-        System.out.println("whole: " + firstWhole + ", numerator: " + firstNumerator + ", denominator: " + firstDenominator);
         
         //Separates second num into whole, numerator, denominator. Stores positive/negative value
         int secondWhole = 0;
@@ -215,10 +209,7 @@ public class FracCalc {
         
         
         
-        System.out.println();
-        System.out.println("Second Number: ");
-        System.out.println("whole:" + secondWhole + " numerator:" + secondNumerator + " denominator:" + secondDenominator);
-        System.out.println();
+        
         
 //========Calculation================================================================
         /*
@@ -291,10 +282,6 @@ public class FracCalc {
             newSecondNumerator *= -1;
         }
         
-        System.out.println("newFirstNumerator: " + newFirstNumerator);
-        System.out.println("newSecondNumerator: " + newSecondNumerator);
-        
-        
         if( (operator.equals("+") ) || (operator.equals("-") ) )
         {
             denominatorAnswer = secondDenominator * firstDenominator;
@@ -326,13 +313,12 @@ public class FracCalc {
             
         }
         
-        totalAnswer = "" + numeratorAnswer + "/" + denominatorAnswer;
-        System.out.println("answer: " + totalAnswer);
         
-        
-//========Simplifying================================================================        
+//========Simplifying================================================================       
 
         /*
+        
+        
         Simplifying
         
         get GCF of numerAnswer and dAnswer
@@ -362,8 +348,81 @@ public class FracCalc {
         
         */
         
+        boolean negative = false;
         
         
+        //we don't want to deal with negatives while simplifying
+        //so, we can check if they're negative, then store that value, then make them positive
+        //right before returning totalAnswer, we can add the negative sign again
+        if(numeratorAnswer != 0)
+        {
+            if( (numeratorAnswer < 0) && (denominatorAnswer < 0) )
+            {
+                //if both numer and denominator are negative, it becomes positive
+
+                negative = false;
+                numeratorAnswer *= -1;
+                denominatorAnswer *= -1;
+            }
+            if(numeratorAnswer < 0)
+            {
+                negative = true;
+                numeratorAnswer *= -1;
+            }
+            if(denominatorAnswer < 0)
+            {
+                negative = true;
+                denominatorAnswer *= -1;
+            }
+        }
+        
+        int gcf = gcf(numeratorAnswer, denominatorAnswer);
+        
+        numeratorAnswer /= gcf;
+        denominatorAnswer /= gcf;
+        
+        int newWhole = 0;
+        
+        
+        if(denominatorAnswer == 1)
+        {
+            newWhole = numeratorAnswer;
+            numeratorAnswer = 0;
+        }
+        if(numeratorAnswer == denominatorAnswer)
+        {
+            newWhole = 1;
+            numeratorAnswer = 0;
+        }
+        
+        if(numeratorAnswer > denominatorAnswer)
+        {
+            //since it's integer division, it'll return divison without the remainder
+            newWhole = numeratorAnswer / denominatorAnswer;
+            //the leftover (remainder) of numerator/denominator is the numerator 
+            numeratorAnswer = numeratorAnswer % denominatorAnswer;
+        }
+        
+        
+        if(numeratorAnswer == 0)
+        {
+            totalAnswer = "" + newWhole;
+        }
+        else if(newWhole == 0)
+        {
+            totalAnswer = "" + numeratorAnswer + "/" + denominatorAnswer;
+        }
+        else
+        {
+            totalAnswer = "" + newWhole + "_" + numeratorAnswer + "/" + denominatorAnswer;
+        }
+        
+        if(negative)
+        {
+            totalAnswer = "-" + totalAnswer;
+        }
+
+
         return totalAnswer;
     }
 
