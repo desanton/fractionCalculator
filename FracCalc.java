@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Calculates fractions.
  *
- * @author Tony Fernandes and Ara Esfarjani something
+ * @author Tony Fernandes and Ara Esfarjani
  * @version 9/21/20
  */
 public class FracCalc {
